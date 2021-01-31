@@ -22,13 +22,30 @@ function knightMove (start, end, visited = [], shortestThusFar = {}) {
     const possibleMoves = getPossibleMoves(start);
     // console.log('possibleMoves =', possibleMoves);
 
+    // if (getAlreadyVisited(end, possibleMoves)) {
+    //     // console.log('toReturn------------------------------------------------');
+    //     // let toReturn = [];
+    //     // const hasStartAlready = getAlreadyVisited(start, visited);
+    //     // const hasEndAlready = getAlreadyVisited(end, visited);
+    //     // if (!hasStartAlready) toReturn = [start, ...visited];
+    //     // if (!hasEndAlready) toReturn = [...toReturn, end];
+    //     // return toReturn;
+    //     // return visited;
+    // }
+
+
     let shortest = null;
     for(move of possibleMoves) {
         let result = knightMove(move, end, [...visited, start], shortestThusFar);
         if (result !== null && result !== undefined) {
+            // console.log('result =', result);
             if (shortest === null || shortest.length > result.length) {
+                // console.log('shortestThusFar =', shortestThusFar);
+
+                shortest = result;
                 if (!shortestThusFar.shortest || shortestThusFar.shortest && shortest.length < shortestThusFar.shortest.length) shortestThusFar.shortest = shortest;
             }
+
         }
     }
 
@@ -69,13 +86,9 @@ console.log(knightMove([0,0],[0,4]))   //[[0,0],[1,2],[0,4]]
 console.log(knightMove([0,0],[5,4]))   //[[0,0],[2,1],[4,2],[5,4]]
 console.log(knightMove([0,0],[2,0]))   //[[0,0],[1,2],[2,0]
 console.log(knightMove([0,0],[0,3]))   //[[0,0],[2,1],[1,3],[0,1]]
+
 console.log(knightMove([0,0],[7,7]))   //[[0,0],[2,1],[4,2],[6,3],[4,4],[6,5],[7,7]]
 console.log(knightMove([0,0],[6,3]))   //[[0,0],[2,1],[4,2],[6,3],[4,4],[6,5],[7,7]]
-
-
-
-
-console.log(knightMove([0,0],[6,5]))   //
 
 
 
