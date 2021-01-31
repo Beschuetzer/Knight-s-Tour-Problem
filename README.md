@@ -1,2 +1,2 @@
 # knightMove
-Dynamic Programming Practice
+Dynamic Programming Practice using Chess
