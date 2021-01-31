@@ -9,37 +9,48 @@
 //return [] if it is the end location
 
 function knightMove (start, end, visited = [], shortestThusFar = {}) {
-    console.log('initial------------------------------------------------');
-    console.log('start =', start);
-    console.log('end =', end);
-    console.log('visited =', visited);
-    console.log('shortestThusFar =', shortestThusFar);
+    // console.log('initial------------------------------------------------');
+    // console.log('start =', start);
+    // console.log('end =', end);
+    // console.log('visited =', visited);
+    // console.log('shortestThusFar =', shortestThusFar);
 
-    if (getEqual(start, end)) return [];
+    if (getEqual(start, end)) return visited;
     if (getAlreadyVisited(start, visited)) return null;
     if (shortestThusFar['shortest'] && shortestThusFar['shortest'].length <= visited.length) return null;
-    
+   
     const possibleMoves = getPossibleMoves(start);
-    if (getAlreadyVisited(end, possibleMoves)) return [...visited];
+    // console.log('possibleMoves =', possibleMoves);
+
+    // if (getAlreadyVisited(end, possibleMoves)) {
+    //     // console.log('toReturn------------------------------------------------');
+    //     // let toReturn = [];
+    //     // const hasStartAlready = getAlreadyVisited(start, visited);
+    //     // const hasEndAlready = getAlreadyVisited(end, visited);
+    //     // if (!hasStartAlready) toReturn = [start, ...visited];
+    //     // if (!hasEndAlready) toReturn = [...toReturn, end];
+    //     // return toReturn;
+    //     // return visited;
+    // }
 
 
     let shortest = null;
-    console.log('possibleMoves =', possibleMoves);
     for(move of possibleMoves) {
         let result = knightMove(move, end, [...visited, start], shortestThusFar);
-        console.log('result =', result);
-        if (result !== null) {
-            result = [...result, move, end];
-            if (shortest === null || shortest.length > result) {
+        if (result !== null && result !== undefined) {
+            // console.log('result =', result);
+            if (shortest === null || shortest.length > result.length) {
+                // console.log('shortestThusFar =', shortestThusFar);
+
                 shortest = result;
                 if (!shortestThusFar['shortest'] || shortestThusFar['shortest'] && shortest.length < shortestThusFar['shortest'].length) shortestThusFar['shortest'] = shortest;
             }
 
         }
     }
-
-
-    return shortest;
+    // console.log('returning shortest+++++++++++++');
+    // return shortest;
+    return shortestThusFar['shortest'];
 }
 
 function getPossibleMoves(location) {
@@ -71,9 +82,10 @@ function getEqual(arr1, arr2) {
 }
 
 
-console.log(knightMove([4,4],[5,2]))   //[5,2]
-// console.log(knightMove([0,0],[4,0]))   //[[0,0],[1,2]]
-// console.log(knightMove([0,0],[1,0]))   //[[1,2],[3,1],[0,1]]
+// console.log(knightMove([4,4],[5,2]))   //[[4,4],[5,2]]
+// console.log(knightMove([0,0],[4,0]))   //[[0,0],[2,1],[4,0]]
+console.log(knightMove([0,0],[0,4]))   //[[0,0],[1,2],[4,0]]
+console.log(knightMove([0,0],[5,4]))   //[[1,2],[3,1],[0,1]]
 
 
    
