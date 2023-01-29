@@ -4,11 +4,13 @@
 //Algorithm:
 //Get all the possible moves that start can move to
 //iterate through each move.  
-//return null if that location has been visited by that any of that recursive frame's parents
+//return null if that location has been visited already
 //return null if the move is out of bounds
 //return [] if it is the end location
 
 function knightMove (start, end, visited = [], shortestThusFar = {}) {
+    //todo: need to validate initial start and end inputs
+
     if (getEqual(start, end)) return visited;
     if (getAlreadyVisited(start, visited)) return null;
     if (shortestThusFar.shortest && shortestThusFar.shortest.length <= visited.length) return null;
