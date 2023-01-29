@@ -1,15 +1,29 @@
 //takes in two points on a chess board and returns the shortest path from start to end
 //points are arrays of two length (e.g. [0,0] is lower left corner of board and [7,7] is upper right corner)
 
-//Algorithm:
+//Approach:
+//validate values
 //Get all the possible moves that start can move to
 //iterate through each move.  
 //return null if that location has been visited already
 //return null if the move is out of bounds
-//return [] if it is the end location
+//return the final array of moves if it is the end location
 
 function knightMove (start, end, visited = [], shortestThusFar = {}) {
-    //todo: need to validate initial start and end inputs
+    if (
+            start.length !== 2 ||
+            end.length !== 2 ||
+            start[0] > 7 ||
+            start[1] > 7 ||
+            start[0] < 0 ||
+            start[1] < 0 ||
+            end[0] > 7 ||
+            end[1] > 7 ||
+            end[0] < 0 ||
+            end[1] < 0
+        ){
+        throw new Error("Invalid start or end value.  Values must meet the following condition: 0 <= x <= 7");
+    }
 
     if (getEqual(start, end)) return visited;
     if (getAlreadyVisited(start, visited)) return null;
@@ -47,6 +61,7 @@ function getPossibleMoves(location) {
     }
     return possibleMoves;
 }
+
 function getAlreadyVisited(start, visited) {
     for (let i = 0; i < visited.length; i++) {
         const visit = visited[i];
@@ -54,25 +69,35 @@ function getAlreadyVisited(start, visited) {
     }
     return false;
 }
+
 function getEqual(arr1, arr2) {
     if (arr1[0] === arr2[0] && arr1[1] === arr2[1]) return true;
     return false;
 }
-
 
 console.log(knightMove([4,4],[5,2]))   //[[4,4],[5,2]]
 console.log(knightMove([0,0],[4,0]))   //[[0,0],[2,1],[4,0]]
 console.log(knightMove([0,0],[0,4]))   //[[0,0],[1,2],[0,4]]
 console.log(knightMove([0,0],[5,4]))   //[[0,0],[2,1],[4,2],[5,4]]
 console.log(knightMove([0,0],[2,0]))   //[[0,0],[1,2],[2,0]
-console.log(knightMove([0,0],[0,3]))   //[[0,0],[2,1],[1,3],[0,1]]
+console.log(knightMove([0,0],[0,3]))   //[[0,0],[1,2],[2,4],[0,3]]
 
 console.log(knightMove([0,0],[7,7]))   
 console.log(knightMove([0,0],[7,6]))   
 
-console.log(knightMove([2,3],[7,7]))   
+console.log(knightMove([2,3],[2,8]))   
 console.log(knightMove([5,4],[7,6])) 
-console.log(knightMove([7,0],[0,7])) 
+console.log(knightMove([6,0],[0,7])) 
+
+console.log(knightMove([-1,0],[0,3]))  //throws
+console.log(knightMove([0,-1],[7,7]))  //throws
+console.log(knightMove([0,0],[-1,7]))  //throws
+console.log(knightMove([0,0],[7,-1]))  //throws
+
+console.log(knightMove([8,0],[0,7]))  //throws
+console.log(knightMove([7,8],[0,7]))  //throws
+console.log(knightMove([7,0],[8,7]))  //throws
+console.log(knightMove([7,0],[0,8]))  //throws
 
 
 
