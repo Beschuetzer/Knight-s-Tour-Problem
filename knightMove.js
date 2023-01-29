@@ -11,6 +11,8 @@
 
 function knightMove (start, end, visited = [], shortestThusFar = {}) {
     if (
+            !start ||
+            !end ||
             start.length !== 2 ||
             end.length !== 2 ||
             start[0] > 7 ||
